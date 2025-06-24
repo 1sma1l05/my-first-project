@@ -35,10 +35,6 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.user = action.payload
             })
-            .addCase(getAllUsers.rejected, (state, action: PayloadAction<any>) => {
-                state.loading = false;
-                state.error = action.payload;
-            })
 
             // Get Single User
             .addCase(getSingleUser.pending, (state) => {

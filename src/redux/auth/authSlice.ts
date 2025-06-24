@@ -38,10 +38,6 @@ const authSlice = createSlice({
                 state.token.accessToken = action.payload.accessToken;
                 state.token.refreshToken = action.payload.refreshToken;
             })
-            .addCase(login.rejected, (state, action: PayloadAction<any>) => {
-                state.loading = false;
-                state.error = action.payload;
-            })
 
             // GetCurrentUser
             .addCase(getCurrentUser.pending, (state) => {
@@ -51,10 +47,6 @@ const authSlice = createSlice({
             .addCase(getCurrentUser.fulfilled, (state, action: PayloadAction<CurrentUserResponse>) => {
                 state.loading = false;
                 state.currentUser = action.payload;
-            })
-            .addCase(getCurrentUser.rejected, (state, action: PayloadAction<any>) => {
-                state.loading = false;
-                state.error = action.payload
             })
 
             // Refresh Tokens
@@ -67,10 +59,6 @@ const authSlice = createSlice({
                 state.token.accessToken = action.payload.accessToken
                 state.token.refreshToken = action.payload.refreshToken
                 console.log('Токен обновлён')
-            })
-            .addCase(refreshTokens.rejected, (state, action: PayloadAction<any>) => {
-                state.loading = false;
-                state.error = action.payload
             })
     }
 })
