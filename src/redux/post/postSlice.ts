@@ -40,6 +40,7 @@ const postSlice = createSlice({
                 state.loading = false;
                 state.postDetail = action.payload
             })
+
             // Search Posts
             .addCase(searchPost.pending, (state) => {
                 state.loading = true;
@@ -48,10 +49,6 @@ const postSlice = createSlice({
             .addCase(searchPost.fulfilled, (state, action: PayloadAction<GetAllPostsResponse>) => {
                 state.loading = false;
                 state.post = action.payload
-            })
-            .addCase(searchPost.rejected, (state, action: PayloadAction<any>) => {
-                state.loading = false;
-                state.error = action.payload;
             })
 
             // Get Posts Tag List
@@ -64,10 +61,6 @@ const postSlice = createSlice({
             .addCase(getPostsByTag.pending, (state) => {
                 state.loading = true;
                 state.error = null;
-            })
-            .addCase(getPostsByTag.fulfilled, (state, action: PayloadAction<GetAllPostsResponse>) => {
-                state.loading = false;
-                state.post = action.payload
             })
     }
 })
