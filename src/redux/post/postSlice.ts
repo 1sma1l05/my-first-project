@@ -30,10 +30,6 @@ const postSlice = createSlice({
                 state.loading = false;
                 state.post = action.payload;
             })
-            .addCase(getAllPosts.rejected, (state, action: PayloadAction<any>) => {
-                state.loading = false;
-                state.error = action.payload;
-            })
 
             // Get a single post
             .addCase(getSinglePost.pending, (state) => {
@@ -44,11 +40,6 @@ const postSlice = createSlice({
                 state.loading = false;
                 state.postDetail = action.payload
             })
-            .addCase(getSinglePost.rejected, (state, action: PayloadAction<any>) => {
-                state.loading = false;
-                state.error = action.payload;
-            })
-
             // Search Posts
             .addCase(searchPost.pending, (state) => {
                 state.loading = true;
