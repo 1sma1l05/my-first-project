@@ -32,6 +32,8 @@ const AppRoutes = () => {
         return <Loading />
     }
 
+    console.log('Ismail')
+
     return token.accessToken ? (
         <Routes>
             <Route path='/' element={<HomePage />} />
