@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../../hooks/useAppSelector';
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { getCurrentUser } from '../../../redux/auth/authThunks';
+import { removeCurrentUser } from '../../../redux/auth/authSlice';
 
 const ProfilePage = () => {
     const dispatch = useAppDispatch()
@@ -11,6 +12,10 @@ const ProfilePage = () => {
     useEffect(() => {
         if (currentUser === null) {
             dispatch(getCurrentUser())
+        }
+
+        return () => {
+            dispatch(removeCurrentUser())
         }
     }, [dispatch])
 
