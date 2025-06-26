@@ -19,6 +19,7 @@ export const getCurrentUserApi = async (accessToken: string) => {
 }
 
 export const refreshTokensApi = async (refreshTokenRequest: RefreshTokenRequest) => {
-    const res = await apiClient.post<RefreshTokenResponse>(urls.auth.refreshTokens(), { refreshToken: refreshTokenRequest })
+    const res = await apiClient.post<RefreshTokenResponse>(urls.auth.refreshTokens(), { refreshToken: refreshTokenRequest, expiresInMins: 1 })
+    console.log('Refresh Token!!!')
     return res
 }

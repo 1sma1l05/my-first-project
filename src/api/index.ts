@@ -1,4 +1,6 @@
 import axios from "axios"
+import { LocalStorage } from "../localStorage/localStorage"
+import { refreshTokensApi } from "./endpoints/authApi"
 
 export const apiClient = axios.create({
     baseURL: 'https://dummyjson.com/auth/',
@@ -6,6 +8,32 @@ export const apiClient = axios.create({
         "Content-Type": "application/json"
     }
 })
+
+apiClient.interceptors.response.use(
+    (response) => {
+        return response
+    },
+    async (error) => {
+        if (axios.isAxiosError(error)) {
+            try {
+                const refreshTokenRequest = LocalStorage.token.refreshToken.getRefreshToken();
+                const res = await refreshTokensApi(refreshTokenRequest);
+                const { accessToken, refreshToken } = res.data;
+
+                LocalStorage.token.accessToken.setAccessToken(accessToken);
+                LocalStorage.token.refreshToken.setRefreshToken(refreshToken);
+
+                if (error.config) {
+                    error.config.headers = error.config.headers || {};
+                    error.config.headers.Authorization = `Bearer ${accessToken}`;
+                    return apiClient.request(error.config);
+                }
+            } catch (refreshError) {
+                return Promise.reject(refreshError);
+            }
+        }
+    }
+)
 
 export const urls = {
     auth: {
